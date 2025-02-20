@@ -153,6 +153,7 @@ To deploy the API:
    ```
 4. Start the server:
    ```sh
+   npm run start:dev
    npm run start:prod
    ```
 
