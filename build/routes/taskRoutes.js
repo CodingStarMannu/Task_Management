@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const taskController_1 = require("../controllers/taskController");
+const schemas_1 = require("../validators/schemas");
+const auth_1 = require("../middlewares/auth");
+const rateLimiter_1 = require("../middlewares/rateLimiter");
+const router = (0, express_1.Router)();
+router.use(auth_1.auth);
+router.post('/createTask', rateLimiter_1.rateLimiter, schemas_1.taskValidation.create, taskController_1.taskController.createTask);
+router.put('/updateTask/:id', rateLimiter_1.rateLimiter, schemas_1.taskValidation.update, taskController_1.taskController.updateTask);
+router.delete('/deleteTask/:id', taskController_1.taskController.deleteTask);
+router.get('/', taskController_1.taskController.getTasks);
+router.patch('/updateTaskStatus/:id', rateLimiter_1.rateLimiter, schemas_1.taskValidation.updateStatus, taskController_1.taskController.updateTaskStatus);
+exports.default = router;
